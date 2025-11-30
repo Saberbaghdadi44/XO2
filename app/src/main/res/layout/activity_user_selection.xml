@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="32dp"
+    android:gravity="center">
+
+    <Button
+        android:id="@+id/button_single_player"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Single Player"
+        android:textSize="18sp"
+        android:layout_margin="16dp"
+        android:padding="16dp" />
+
+    <Button
+        android:id="@+id/button_two_players"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Two Players"
+        android:textSize="18sp"
+        android:layout_margin="16dp"
+        android:padding="16dp" />
+
+    <Button
+        android:id="@+id/button_edit_names"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Edit Names"
+        android:textSize="18sp"
+        android:layout_margin="16dp"
+        android:padding="16dp" />
+
+</LinearLayout>

@@ -1,0 +1,72 @@
+
+
+<resources>
+    <!-- Base application theme -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">#673AB7</item>
+        <item name="colorPrimaryDark">#512DA8</item>
+        <item name="colorAccent">#FF9800</item>
+    </style>
+
+    <!-- Style pour les boutons de la grille -->
+    <style name="GridButtonStyleImproved">
+        <item name="android:layout_width">80dp</item>
+        <item name="android:layout_height">80dp</item>
+        <item name="android:textSize">32sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:background">@drawable/button_neon_effect</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:shadowColor">#000000</item>
+        <item name="android:shadowDx">0</item>
+        <item name="android:shadowDy">0</item>
+        <item name="android:shadowRadius">15</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <!-- Style pour le texte néon rouge -->
+    <style name="NeonTextRed">
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:shadowColor">#FFFF1744</item>
+        <item name="android:shadowDx">0</item>
+        <item name="android:shadowDy">0</item>
+        <item name="android:shadowRadius">20</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- Style pour le texte néon bleu -->
+    <style name="NeonTextBlue">
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:shadowColor">#FF2979FF</item>
+        <item name="android:shadowDx">0</item>
+        <item name="android:shadowDy">0</item>
+        <item name="android:shadowRadius">20</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- Style pour le texte néon violet -->
+    <style name="NeonTextPurple">
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:shadowColor">#FFE040FB</item>
+        <item name="android:shadowDx">0</item>
+        <item name="android:shadowDy">0</item>
+        <item name="android:shadowRadius">20</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- Style pour les boutons d'action -->
+    <style name="ActionButtonNeon">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:background">@drawable/button_neon_effect</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:shadowColor">#000000</item>
+        <item name="android:shadowDx">0</item>
+        <item name="android:shadowDy">0</item>
+        <item name="android:shadowRadius">8</item>
+        <item name="android:padding">12dp</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+</resources>

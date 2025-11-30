@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Ombre externe -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#00FFFFFF" />
+            <stroke
+                android:width="4dp"
+                android:color="#FF2979FF" />
+            <corners android:radius="2dp" />
+        </shape>
+    </item>
+
+    <!-- Ombre intermédiaire -->
+    <item android:bottom="2dp" android:top="2dp" android:left="2dp" android:right="2dp">
+        <shape android:shape="rectangle">
+            <solid android:color="#00FFFFFF" />
+            <stroke
+                android:width="3dp"
+                android:color="#FF448AFF" />
+            <corners android:radius="2dp" />
+        </shape>
+    </item>
+
+    <!-- Lumière centrale -->
+    <item android:bottom="4dp" android:top="4dp" android:left="4dp" android:right="4dp">
+        <shape android:shape="rectangle">
+            <solid android:color="#00FFFFFF" />
+            <stroke
+                android:width="2dp"
+                android:color="#80448AFF" />
+            <corners android:radius="2dp" />
+        </shape>
+    </item>
+</layer-list>

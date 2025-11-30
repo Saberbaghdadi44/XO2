@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#1A1A2E"
+    android:padding="20dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <!-- Titre du jeu avec effet néon -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="JEU XO"
+            android:textSize="36sp"
+            android:textStyle="bold"
+            style="@style/NeonTextPurple"
+            android:layout_marginBottom="30dp" />
+
+        <!-- Affichage des joueurs -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginBottom="15dp">
+
+            <TextView
+                android:id="@+id/playerXName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Joueur1"
+                android:textSize="18sp"
+                android:gravity="center"
+                style="@style/NeonTextRed" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="VS"
+                android:textSize="16sp"
+                android:textColor="#FFFFFF"
+                android:shadowColor="#FF9800"
+                android:shadowDx="0"
+                android:shadowDy="0"
+                android:shadowRadius="10"
+                android:layout_marginHorizontal="16dp" />
+
+            <TextView
+                android:id="@+id/playerOName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Adversaire"
+                android:textSize="18sp"
+                android:gravity="center"
+                style="@style/NeonTextBlue" />
+
+        </LinearLayout>
+
+        <!-- Statut du tour -->
+        <TextView
+            android:id="@+id/tvPlayer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tour: X"
+            android:textSize="20sp"
+            style="@style/NeonTextPurple"
+            android:layout_marginBottom="25dp" />
+
+        <!-- Grille de jeu avec bordure néon -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/button_neon_border"
+            android:padding="8dp"
+            android:elevation="16dp">
+
+            <!-- Ligne 1 -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <Button android:id="@+id/btn00" style="@style/GridButtonStyleImproved" />
+                <View android:layout_width="3dp" android:layout_height="match_parent" android:background="#3D5AFE" />
+                <Button android:id="@+id/btn01" style="@style/GridButtonStyleImproved" />
+                <View android:layout_width="3dp" android:layout_height="match_parent" android:background="#3D5AFE" />
+                <Button android:id="@+id/btn02" style="@style/GridButtonStyleImproved" />
+            </LinearLayout>
+
+            <View android:layout_width="match_parent" android:layout_height="3dp" android:background="#3D5AFE" />
+
+            <!-- Ligne 2 -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <Button android:id="@+id/btn10" style="@style/GridButtonStyleImproved" />
+                <View android:layout_width="3dp" android:layout_height="match_parent" android:background="#3D5AFE" />
+                <Button android:id="@+id/btn11" style="@style/GridButtonStyleImproved" />
+                <View android:layout_width="3dp" android:layout_height="match_parent" android:background="#3D5AFE" />
+                <Button android:id="@+id/btn12" style="@style/GridButtonStyleImproved" />
+            </LinearLayout>
+
+            <View android:layout_width="match_parent" android:layout_height="3dp" android:background="#3D5AFE" />
+
+            <!-- Ligne 3 -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <Button android:id="@+id/btn20" style="@style/GridButtonStyleImproved" />
+                <View android:layout_width="3dp" android:layout_height="match_parent" android:background="#3D5AFE" />
+                <Button android:id="@+id/btn21" style="@style/GridButtonStyleImproved" />
+                <View android:layout_width="3dp" android:layout_height="match_parent" android:background="#3D5AFE" />
+                <Button android:id="@+id/btn22" style="@style/GridButtonStyleImproved" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- Boutons d'action -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="35dp"
+            android:gravity="center">
+
+            <!-- Première ligne de boutons -->
+            <Button
+                android:id="@+id/btnEditNames"
+                android:layout_width="220dp"
+                android:layout_height="45dp"
+                android:text="MODIFIER NOMS"
+                android:textSize="14sp"
+                style="@style/ActionButtonNeon"
+                android:backgroundTint="#3D5AFE"
+                android:layout_marginBottom="12dp" />
+
+            <Button
+                android:id="@+id/btnChangePlayer"
+                android:layout_width="220dp"
+                android:layout_height="45dp"
+                android:text="CHANGER JOUEUR"
+                android:textSize="14sp"
+                style="@style/ActionButtonNeon"
+                android:backgroundTint="#FF9800"
+                android:layout_marginBottom="12dp" />
+
+            <!-- Deuxième ligne de boutons -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+                <Button
+                    android:id="@+id/btnReset"
+                    android:layout_width="0dp"
+                    android:layout_height="45dp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="8dp"
+                    android:text="NOUVELLE"
+                    android:textSize="12sp"
+                    style="@style/ActionButtonNeon"
+                    android:backgroundTint="#4CAF50" />
+
+                <Button
+                    android:id="@+id/btnScores"
+                    android:layout_width="0dp"
+                    android:layout_height="45dp"
+                    android:layout_weight="1"
+                    android:layout_marginStart="8dp"
+                    android:text="SCORES"
+                    android:textSize="12sp"
+                    style="@style/ActionButtonNeon"
+                    android:backgroundTint="#9C27B0" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!-- Overlay de résultat avec effet néon -->
+    <RelativeLayout
+        android:id="@+id/resultLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#80000000"
+        android:visibility="gone"
+        android:gravity="center">
+
+        <LinearLayout
+            android:layout_width="320dp"
+            android:layout_height="280dp"
+            android:orientation="vertical"
+            android:background="@drawable/button_neon_border"
+            android:elevation="24dp"
+            android:gravity="center"
+            android:padding="25dp">
+
+            <TextView
+                android:id="@+id/tvResult"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Le joueur X gagne!"
+                android:textSize="26sp"
+                android:textStyle="bold"
+                style="@style/NeonTextPurple"
+                android:gravity="center"
+                android:layout_marginBottom="40dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+                <Button
+                    android:id="@+id/btnQuit"
+                    android:layout_width="0dp"
+                    android:layout_height="55dp"
+                    android:layout_weight="1"
+                    android:text="QUITTER"
+                    android:textSize="14sp"
+                    style="@style/ActionButtonNeon"
+                    android:backgroundTint="#F44336"
+                    android:layout_marginEnd="10dp" />
+
+                <Button
+                    android:id="@+id/btnNewGame"
+                    android:layout_width="0dp"
+                    android:layout_height="55dp"
+                    android:layout_weight="1"
+                    android:text="REJOUER"
+                    android:textSize="14sp"
+                    style="@style/ActionButtonNeon"
+                    android:backgroundTint="#4CAF50"
+                    android:layout_marginStart="10dp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>
