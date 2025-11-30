@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView textViewStatus;
     private RelativeLayout resultLayout;
     private TextView textViewResult;
+    private TextView textViewTournamentInfo;
 
     private String playerXName = "Joueur1";
     private String playerOName = "Adversaire";
@@ -37,6 +38,14 @@ public class MainActivity extends AppCompatActivity {
     private int playerXWins = 0;
     private int playerOWins = 0;
     private int draws = 0;
+
+    // Variables pour le tournoi
+    private boolean tournamentMode = false;
+    private int tournamentSize = 5;
+    private int currentTournamentGame = 0;
+    private int tournamentXWins = 0;
+    private int tournamentOWins = 0;
+    private int tournamentDraws = 0;
 
     // Database helper pour l'archivage
     private DatabaseHelper databaseHelper;
@@ -70,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
         textViewStatus = findViewById(R.id.tvPlayer);
         resultLayout = findViewById(R.id.resultLayout);
         textViewResult = findViewById(R.id.tvResult);
+        textViewTournamentInfo = findViewById(R.id.tvTournamentInfo);
 
         // Appliquer l'effet néon aux textes des joueurs
         applyNeonTextEffect(textViewPlayerX, true);
@@ -109,6 +119,7 @@ public class MainActivity extends AppCompatActivity {
         Button btnScores = findViewById(R.id.btnScores);
         Button btnQuit = findViewById(R.id.btnQuit);
         Button btnNewGame = findViewById(R.id.btnNewGame);
+        Button btnTournament = findViewById(R.id.btnTournament);
 
         // Appliquer des effets aux boutons d'action
         applyButtonNeonEffect(btnEditNames, Color.parseColor("#FF9800"));
@@ -117,6 +128,14 @@ public class MainActivity extends AppCompatActivity {
         applyButtonNeonEffect(btnScores, Color.parseColor("#9C27B0"));
         applyButtonNeonEffect(btnQuit, Color.parseColor("#F44336"));
         applyButtonNeonEffect(btnNewGame, Color.parseColor("#4CAF50"));
+        applyButtonNeonEffect(btnTournament, Color.parseColor("#FFEB3B"));
+
+        btnTournament.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showTournamentOptions();
+            }
+        });
 
         btnEditNames.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -156,8 +175,17 @@ public class MainActivity extends AppCompatActivity {
         btnNewGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                resultLayout.setVisibility(View.GONE);
-                resetGame();
+                if (tournamentMode && currentTournamentGame < tournamentSize) {
+                    // En mode tournoi, passer à la partie suivante
+                    startNextTournamentGame();
+                } else if (tournamentMode && currentTournamentGame >= tournamentSize) {
+                    // Tournoi terminé, proposer un nouveau tournoi
+                    showTournamentOptions();
+                } else {
+                    // Mode normal, juste réinitialiser le jeu
+                    resultLayout.setVisibility(View.GONE);
+                    resetGame();
+                }
             }
         });
 
@@ -165,6 +193,137 @@ public class MainActivity extends AppCompatActivity {
         textViewPlayerX.setText(playerXName);
         textViewPlayerO.setText(playerOName);
         updateStatus();
+        updateTournamentDisplay();
+    }
+
+    private void showTournamentOptions() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Démarrer un tournoi")
+                .setItems(new String[]{"Tournoi de 5 parties", "Tournoi de 10 parties", "Tournoi de 15 parties"}, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which) {
+                            case 0:
+                                startTournament(5);
+                                break;
+                            case 1:
+                                startTournament(10);
+                                break;
+                            case 2:
+                                startTournament(15);
+                                break;
+                        }
+                    }
+                });
+        builder.show();
+    }
+
+    private void startTournament(int size) {
+        tournamentMode = true;
+        tournamentSize = size;
+        currentTournamentGame = 0;
+        tournamentXWins = 0;
+        tournamentOWins = 0;
+        tournamentDraws = 0;
+
+        // Masquer le bouton tournoi pendant le tournoi
+        Button btnTournament = findViewById(R.id.btnTournament);
+        btnTournament.setVisibility(View.GONE);
+
+        // Adapter le bouton nouvelle partie
+        Button btnNewGame = findViewById(R.id.btnNewGame);
+        btnNewGame.setText("Commencer");
+
+        // Cacher le résultat précédent
+        resultLayout.setVisibility(View.GONE);
+
+        updateTournamentDisplay();
+
+        Toast.makeText(this, "Tournoi de " + size + " parties démarré!", Toast.LENGTH_SHORT).show();
+    }
+
+    private void startNextTournamentGame() {
+        if (currentTournamentGame >= tournamentSize) {
+            // Tournoi terminé
+            endTournament();
+            return;
+        }
+
+        currentTournamentGame++;
+        updateTournamentDisplay();
+
+        // Réinitialiser le jeu pour la nouvelle partie
+        resultLayout.setVisibility(View.GONE);
+        resetGame();
+
+        // Mettre à jour le statut
+        textViewStatus.setText("Tournoi - Partie " + currentTournamentGame + "/" + tournamentSize);
+    }
+
+    private void updateTournamentDisplay() {
+        if (textViewTournamentInfo != null) {
+            if (tournamentMode) {
+                if (currentTournamentGame == 0) {
+                    textViewTournamentInfo.setText("Tournoi: " + tournamentSize + " parties\nPrêt à commencer");
+                } else if (currentTournamentGame <= tournamentSize) {
+                    textViewTournamentInfo.setText("Tournoi - Partie " + currentTournamentGame + "/" + tournamentSize +
+                            "\nX: " + tournamentXWins + " | O: " + tournamentOWins + " | Nuls: " + tournamentDraws);
+                } else {
+                    textViewTournamentInfo.setText("Tournoi terminé!\nX: " + tournamentXWins + " | O: " + tournamentOWins + " | Nuls: " + tournamentDraws);
+                }
+                textViewTournamentInfo.setVisibility(View.VISIBLE);
+            } else {
+                textViewTournamentInfo.setVisibility(View.GONE);
+            }
+        }
+    }
+
+    private void endTournament() {
+        tournamentMode = false;
+
+        // Déterminer le vainqueur du tournoi
+        String tournamentWinner;
+        if (tournamentXWins > tournamentOWins) {
+            tournamentWinner = playerXName;
+        } else if (tournamentOWins > tournamentXWins) {
+            tournamentWinner = playerOName;
+        } else {
+            tournamentWinner = "Égalité";
+        }
+
+        // Enregistrer le tournoi dans la base de données
+        databaseHelper.archiveSession(playerXName, playerOName, tournamentXWins, tournamentOWins, tournamentDraws);
+        databaseHelper.clearOldArchives();
+
+        // Afficher le résultat final du tournoi DIRECTEMENT dans l'écran principal
+        String resultMessage = "🏆 TOURNOI TERMINÉ 🏆\n\n";
+        resultMessage += "Score final:\n";
+        resultMessage += playerXName + ": " + tournamentXWins + " victoires\n";
+        resultMessage += playerOName + ": " + tournamentOWins + " victoires\n";
+        resultMessage += "Matchs nuls: " + tournamentDraws + "\n\n";
+
+        if (!tournamentWinner.equals("Égalité")) {
+            resultMessage += "🎉 VAINQUEUR: " + tournamentWinner + " !";
+        } else {
+            resultMessage += "🤝 TOURNOI NUL !";
+        }
+
+        // Afficher le résultat dans le TextView de résultat existant
+        textViewResult.setText(resultMessage);
+        resultLayout.setVisibility(View.VISIBLE);
+
+        // Adapter le bouton "Nouvelle Partie"
+        Button btnNewGame = findViewById(R.id.btnNewGame);
+        btnNewGame.setText("Nouveau Tournoi");
+
+        // Réafficher le bouton tournoi
+        Button btnTournament = findViewById(R.id.btnTournament);
+        btnTournament.setVisibility(View.VISIBLE);
+
+        // Mettre à jour l'affichage du tournoi
+        updateTournamentDisplay();
+
+        // Toast de confirmation de sauvegarde
+        Toast.makeText(this, "Tournoi sauvegardé!", Toast.LENGTH_SHORT).show();
     }
 
     private void applyNeonTextEffect(TextView textView, boolean isRed) {
@@ -221,16 +380,19 @@ public class MainActivity extends AppCompatActivity {
             gameActive = false;
             if (playerXTurn) {
                 playerXWins++;
+                if (tournamentMode) tournamentXWins++;
                 showResult(playerXName + " gagne!");
                 applyWinAnimation(true); // Animation victoire pour X
             } else {
                 playerOWins++;
+                if (tournamentMode) tournamentOWins++;
                 showResult(playerOName + " gagne!");
                 applyWinAnimation(false); // Animation victoire pour O
             }
         } else if (isBoardFull()) {
             gameActive = false;
             draws++;
+            if (tournamentMode) tournamentDraws++;
             showResult("Match nul!");
             applyDrawAnimation();
         } else {
@@ -381,6 +543,18 @@ public class MainActivity extends AppCompatActivity {
         textViewResult.startAnimation(scaleAnimation);
 
         resultLayout.setVisibility(View.VISIBLE);
+
+        // Si mode tournoi, adapter le bouton "Nouvelle partie"
+        if (tournamentMode) {
+            Button btnNewGame = findViewById(R.id.btnNewGame);
+            if (btnNewGame != null) {
+                if (currentTournamentGame < tournamentSize) {
+                    btnNewGame.setText("Partie suivante");
+                } else {
+                    btnNewGame.setText("Nouveau Tournoi");
+                }
+            }
+        }
     }
 
     private void setupGame() {
@@ -480,7 +654,17 @@ public class MainActivity extends AppCompatActivity {
 
     private void showResult(String message) {
         textViewResult.setText(message);
+
+        // En mode tournoi, adapter le message du bouton
+        Button btnNewGame = findViewById(R.id.btnNewGame);
+        if (tournamentMode && currentTournamentGame < tournamentSize) {
+            btnNewGame.setText("Partie suivante");
+        } else if (tournamentMode) {
+            btnNewGame.setText("Nouveau Tournoi");
+        }
+
         resultLayout.setVisibility(View.VISIBLE);
+        updateTournamentDisplay();
     }
 
     private void resetGame() {

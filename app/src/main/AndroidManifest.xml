@@ -44,6 +44,19 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
 
+        <!-- Activité Tournoi -->
+        <activity
+            android:name=".TournamentActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:parentActivityName=".MainActivity">
+
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />

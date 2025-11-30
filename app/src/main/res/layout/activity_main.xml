@@ -5,6 +5,7 @@
     android:background="#1A1A2E"
     android:padding="20dp">
 
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -61,6 +62,22 @@
                 android:gravity="center"
                 style="@style/NeonTextBlue" />
 
+            <TextView
+                android:id="@+id/tvTournamentInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:text="Tournoi en cours"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="#FFEB3B"
+                android:gravity="center"
+                android:visibility="gone"
+                android:shadowColor="#FF9800"
+                android:shadowRadius="10"
+                android:shadowDx="0"
+                android:shadowDy="0"/>
         </LinearLayout>
 
         <!-- Statut du tour -->
@@ -181,6 +198,15 @@
                     android:textSize="12sp"
                     style="@style/ActionButtonNeon"
                     android:backgroundTint="#9C27B0" />
+                <Button
+                    android:id="@+id/btnTournament"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tournoi"
+                    android:layout_margin="10dp"
+                    style="@style/ActionButtonNeon"
+                    android:textColor="@android:color/white"/>
+
 
             </LinearLayout>
 
